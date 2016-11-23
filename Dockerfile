@@ -5,6 +5,7 @@ ENV  HOME /root
 
 # For debconf not to complain
 ENV  DEBIAN_FRONTEND noninteractive
+RUN sysctl fs.inotify.max_user_watches=6553500
 
 # force-unsafe-io to disable sync - safe for image building
 RUN  echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
@@ -16,8 +17,8 @@ RUN  echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
 
 
 RUN apt-get install -y librsync-dev
-ADD https://code.launchpad.net/duplicity/0.7-series/0.7.07.1/+download/duplicity-0.7.07.1.tar.gz /tmp
-RUN pip install /tmp/duplicity-0.7.07.1.tar.gz boto urllib3
+ADD https://code.launchpad.net/duplicity/0.7-series/0.7.10/+download/duplicity-0.7.10.tar.gz /tmp
+RUN pip install /tmp/duplicity-0.7.10.tar.gz boto urllib3
 
 ADD  /root /
 RUN chmod a+x /run.sh
